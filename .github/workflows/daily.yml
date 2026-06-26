@@ -2,7 +2,7 @@ name: Daily Stock Ranking
 
 on:
   schedule:
-    - cron: "0 2 * * *"
+    - cron: "30 1 * * 1-5"
   workflow_dispatch:
 
 jobs:

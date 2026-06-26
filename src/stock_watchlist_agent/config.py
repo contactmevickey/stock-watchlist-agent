@@ -31,7 +31,7 @@ def get_settings() -> Settings:
         groq_model=os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile"),
         gmail_user=os.getenv("GMAIL_USER"),
         gmail_app_password=os.getenv("GMAIL_APP_PASSWORD"),
-        email_to=os.getenv("EMAIL_TO", "contactmevickey@gmail.com"),
+        email_to=os.getenv("EMAIL_TO"),
     )
 
 

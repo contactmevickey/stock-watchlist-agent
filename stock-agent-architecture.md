@@ -57,7 +57,7 @@ prioritization tool for the user's own research, not a buy/sell signal.
 │     qualitative judgment, MUST return structured justification        │
 │     per stock (no silent black-box reordering)                         │
 │  5. Write results to "Latest" tab (overwrite) and a new dated tab       │
-│  6. Send email summary to contactmevickey@gmail.com                      │
+│  6. Send email summary to <your-email>@gmail.com                      │
 └──────────────────────────────────────────────────────────────┘
                          │
                          │ reads same Sheet
@@ -108,7 +108,7 @@ Pure Python, no scheduling or UI logic. Used by both the daily job and the chat 
 5. Write results to:
    - `Latest` tab (overwritten each run)
    - New tab named `YYYY-MM-DD` (hidden by default)
-6. Send email via Gmail SMTP (app password) to `contactmevickey@gmail.com`.
+6. Send email via Gmail SMTP (app password) to `your-email@gmail.com`.
 
 **Schedule:** GitHub Actions cron, runs in the cloud — independent of whether the
 Mac is awake.

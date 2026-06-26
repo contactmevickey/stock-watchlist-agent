@@ -1,6 +1,6 @@
 # Indian Stock Watchlist Agent
 
-Daily stock-watchlist ranking agent for NSE tickers, backed by Google Sheets, yfinance, Groq, Gmail SMTP, and Streamlit.
+Daily stock-watchlist ranking agent for NSE/BSE tickers, backed by Google Sheets, yfinance, Groq, Gmail SMTP, and Streamlit.
 
 ## Local Setup
 
