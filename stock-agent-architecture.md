@@ -13,7 +13,7 @@ emails the result, and offers a conversational UI to query stocks on demand.
 ## 1. Problem Statement
 
 - Input: a Google Sheet ("Watchlist" tab) listing Indian (NSE) stock tickers.
-- Daily (7:30 AM IST), the system should:
+- Daily (7:00 AM IST), the system should:
   1. Read the watchlist.
   2. Fetch current price + fundamentals (PE, PB, EPS, etc.) for each stock.
   3. Score each stock on valuation/fundamentals.
@@ -200,11 +200,9 @@ Mac is awake.
 
 1. `stock_analyzer.py` — get `fetch_stock_data` working standalone for a few tickers.
 2. Add `score_stock` (rules-based) — test against known over/undervalued stocks.
-3. Add `rank_with_llm` — get structured JSON output working reliably (this is the
-   trickiest prompt-engineering part).
+3. Add `rank_with_llm` — get structured JSON output working reliably (this is the trickiest prompt-engineering part).
 4. `run_daily.py` — wire up Sheets read/write + email, run manually first.
-5. Move `run_daily.py` into GitHub Actions, set up secrets, confirm scheduled run
-   works end-to-end.
+5. Move `run_daily.py` into GitHub Actions, set up secrets, confirm scheduled run works end-to-end.
 6. Add the weekly cleanup workflow.
 7. Build `app.py` (Streamlit) for the chat UI, reusing `stock_analyzer.py`.
 8. Polish: hide dated tabs, populate `Latest` tab, test historical queries in chat.

@@ -17,7 +17,7 @@ from stock_watchlist_agent.stock_analyzer import explain_stock, fetch_stock_data
 st.set_page_config(page_title="Stock Watchlist Agent", layout="wide")
 
 st.title("Stock Watchlist Agent")
-st.caption("Research prioritization only. Not investment advice.")
+st.caption("Research prioritization with Analysis.")
 
 tab_latest, tab_stock, tab_history = st.tabs(["Latest Ranking", "Stock Check", "History"])
 

@@ -61,7 +61,7 @@ def write_rankings(rankings: Iterable[Dict[str, Any]], run_date: date) -> None:
     dated_sheet.hide()
 
 
-def cleanup_old_dated_tabs(days_to_keep: int = 365) -> List[str]:
+def cleanup_old_dated_tabs(days_to_keep: int = 30) -> List[str]:
     spreadsheet = get_spreadsheet()
     cutoff = date.today() - timedelta(days=days_to_keep)
     deleted = []
