@@ -1,6 +1,6 @@
 # Indian Stock Watchlist Agent
 
-Daily stock-watchlist ranking agent for NSE tickers, backed by Google Sheets, yfinance, Groq, Gmail SMTP, and Streamlit.
+Daily stock-watchlist ranking agent for NSE tickers, backed by Google Sheets, Groq, Gmail SMTP, and Streamlit.
 
 ## Local Setup
 
@@ -54,6 +54,35 @@ source venv/bin/activate
 python scripts/run_daily.py
 streamlit run app.py
 ```
+
+## Hugging Face Spaces Deployment
+
+This app can be deployed to Hugging Face Spaces as a Streamlit app.
+
+### Required changes
+
+1. Keep the app entrypoint as `app.py`.
+2. Make sure the Space uses `requirements.txt` for dependencies.
+3. Use Hugging Face Secrets for runtime credentials instead of a local `.env` file. Set these secrets in the Space settings:
+   - `GOOGLE_SHEET_ID`
+   - `GOOGLE_SERVICE_ACCOUNT_JSON`
+   - `GROQ_API_KEY`
+   - `GMAIL_USER`
+   - `GMAIL_APP_PASSWORD`
+   - `EMAIL_TO`
+4. If you want the app to read the service account JSON from a file inside the Space, upload `service-account.json` and optionally set `GOOGLE_SERVICE_ACCOUNT_FILE` to point to it.
+
+### Recommended Space files
+
+- `requirements.txt` for Python dependencies
+- `app.py` as the Streamlit entrypoint
+- Optional: `.streamlit/config.toml` to set the port and headless mode
+
+### Notes
+
+- The app expects Google Sheets access, so the Space must have valid Google credentials and the target sheet shared with the service account.
+- The Streamlit UI is mainly read-only for browsing results; the daily job still needs to run from a separate process or workflow.
+- If you want scheduled runs in Spaces, use a separate worker or a GitHub Action rather than relying on the Streamlit app itself.
 
 ## GitHub Actions Secrets
 
