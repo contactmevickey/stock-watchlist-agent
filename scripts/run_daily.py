@@ -14,15 +14,19 @@ from stock_watchlist_agent.stock_analyzer import fetch_stock_data, rank_by_rules
 
 def main() -> None:
     tickers = read_watchlist()
+    print(f"To process {len(tickers)} stocks")
     if not tickers:
         raise RuntimeError("Watchlist tab has no tickers")
 
     stock_data = [fetch_stock_data(ticker) for ticker in tickers]
+    print(f"Fetched data for {len(stock_data)} stocks")
     rules_rows = rank_by_rules(stock_data)
+    print(f"Ranked stocks by rules: {len(rules_rows)}")
     rankings = rank_with_llm(rules_rows)
+    print(f"Ranked stocks with LLM: {len(rankings)}")
 
     write_rankings(rankings, date.today())
-    send_daily_email(rankings)
+    # send_daily_email(rankings)
     print(f"Processed {len(rankings)} stocks")
 
 

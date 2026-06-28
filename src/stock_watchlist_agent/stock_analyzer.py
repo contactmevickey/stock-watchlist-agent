@@ -106,6 +106,7 @@ def fetch_stock_data(ticker: str) -> StockData:
             fetched_at=fetched_at,
         )
     except Exception as exc:
+        print(f"Failure for stock {yahoo_ticker}: {exc}")
         return StockData(
             ticker=base_ticker,
             yahoo_ticker=yahoo_ticker,
@@ -271,12 +272,17 @@ def rank_with_llm(stock_rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         }
         for row in stock_rows
     ]
+    print(f"Sending {len(payload)} stocks to LLM for ranking")
+
     prompt = (
-        "You are ranking Indian NSE watchlist stocks for research prioritization, "
-        "not investment advice. Use the rules score as the anchor, adjust only "
-        "when the supplied fundamentals justify it, and return strict JSON with "
-        "a 'rankings' array. Each item must include ticker, rules_rank, final_rank, "
-        "score, adjustment_reason, and summary."
+        "Act and Analyse as an Expert Stock Market Analyst. I need you to rank Indian NSE watchlist stocks for research prioritization."
+        "Initial data based analysis and scoring is done as an stock market investor myself, and you must use the rules score as the anchor, "
+        "adjusting only when the supplied fundamentals justify it, and return strict JSON with a 'rankings' array. "
+        "Each item must include ticker, rules_rank, final_rank, score, adjustment_reason, and summary."
+        "You should rank all stocks, even if the score is low, and provide a concise summary of the stock's fundamentals."
+        "You as an expert in stock market analysis, can consider other criteria that can be considered as well along with the supplied fundamentals, "
+        "go ahead and update rank as required, but you must justify it in the adjustment_reason for the rank order changes for that stock."
+        "If you cannot rank a stock, provide a reason in adjustment_reason and use the rules_rank as final_rank."
     )
 
     client = Groq(api_key=settings.groq_api_key)
@@ -293,10 +299,13 @@ def rank_with_llm(stock_rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         content = response.choices[0].message.content or "{}"
         parsed = json.loads(content)
         rankings = parsed.get("rankings", [])
+        print(f"LLM returned {len(rankings)} rankings")
+
         if not isinstance(rankings, list) or not rankings:
             raise ValueError("LLM returned no rankings")
         return sorted(rankings, key=lambda item: item.get("final_rank", 999))
     except Exception as exc:
+        print(f"Error occurred while fetching LLM rankings: {exc}")
         return _fallback_llm_ranking(stock_rows, f"LLM ranking failed: {exc}")
 
 
