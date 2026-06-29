@@ -26,7 +26,7 @@ def main() -> None:
     print(f"Ranked stocks with LLM: {len(rankings)}")
 
     write_rankings(rankings, date.today())
-    # send_daily_email(rankings)
+    send_daily_email(rankings)
     print(f"Processed {len(rankings)} stocks")
 
 
